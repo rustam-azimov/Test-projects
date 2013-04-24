@@ -5,3 +5,7 @@ Makefile.*
 *.exe
 ui_*
 moc_*
+*.Debug
+*.Release
+debug/*
+release/*
