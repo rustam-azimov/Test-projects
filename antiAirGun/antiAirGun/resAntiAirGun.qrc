@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/plane">
+        <file>plane/animation_plane_explosive.gif</file>
+        <file>plane/plane.gif</file>
+        <file>plane/sound_plane_explosive.mp3</file>
+        <file>gun/animation_shoot.gif</file>
+        <file>gun/base.gif</file>
+        <file>gun/bullet.gif</file>
+        <file>gun/gun.gif</file>
+        <file>gun/sound_shoot.mp3</file>
+        <file>gun/sound_traverse.mp3</file>
+    </qresource>
+</RCC>
