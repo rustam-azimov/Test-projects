@@ -9,3 +9,4 @@ moc_*
 *.Release
 debug/*
 release/*
+qrc_*
