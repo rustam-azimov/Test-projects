@@ -9,5 +9,7 @@
         <file>plane/plane.gif</file>
         <file>gun/sound_shoot2.wav</file>
         <file>plane/sound_plane_explosive.wav</file>
+        <file>gun/leftBullet.gif</file>
+        <file>gun/rightBullet.gif</file>
     </qresource>
 </RCC>

@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     GameWidget view;
-    view.setFixedSize(770, 382);
+    view.setFixedSize(sceneWidth + 2, sceneHeight + 2);
     view.show();
 
     QTimer timer;
