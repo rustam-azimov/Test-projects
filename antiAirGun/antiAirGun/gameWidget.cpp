@@ -26,18 +26,10 @@ GameWidget::GameWidget(QWidget *parent) :
 
 GameWidget::~GameWidget()
 {
-    delete scene;
     delete airGun;
     delete player;
     delete army;
-    delete background;
-    delete mainMenuNewGame;
-    delete mainMenuRecords;
-    delete mainMenuHelp;
-    delete menuLeftBullet;
-    delete menuRightBullet;
-    delete healthPoints;
-    delete score;
+    delete scene;
 }
 
 
