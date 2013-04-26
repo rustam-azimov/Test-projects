@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     shootAnimation.cpp \
     explosiveAnimation.cpp \
     player.cpp \
-    bomb.cpp
+    bomb.cpp \
+    mainMenu.cpp
 
 HEADERS  += \
     airGunTurret.h \
@@ -34,7 +35,8 @@ HEADERS  += \
     shootAnimation.h \
     explosiveAnimation.h \
     player.h \
-    bomb.h
+    bomb.h \
+    mainMenu.h
 
 RESOURCES += \
     resourses.qrc

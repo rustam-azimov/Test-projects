@@ -7,23 +7,18 @@ GameWidget::GameWidget(QWidget *parent) :
     QGraphicsView(parent),
     scene(new QGraphicsScene),
     player(new Player),
+    mainMenu(new MainMenu(scene)),
     isGameStarted(false),
-    isMenuStarted(true),
     background(new QGraphicsPixmapItem(QPixmap(":/game/background.gif"))),
-    gameOver(new QGraphicsPixmapItem(QPixmap(":/game/game_over.gif"))),
-    menuBulletsStatus(0)
+    gameOver(new QGraphicsPixmapItem(QPixmap(":/game/game_over.gif")))
 {
     scene->setSceneRect(0, 0, sceneWidth, sceneHeight);
     setScene(scene);
     scene->setBackgroundBrush(Qt::white);
     QObject::connect(player, SIGNAL(gameOver()),
                      this, SLOT(gameIsOver()));
-    mainMenuNewGame = new QGraphicsTextItem;
-    mainMenuRecords = new QGraphicsTextItem;
-    mainMenuHelp = new QGraphicsTextItem;
-    menuLeftBullet = new QGraphicsPixmapItem;
-    menuRightBullet = new QGraphicsPixmapItem;
-    setMainMenu();
+
+    mainMenu->setMainMenu();
 }
 
 GameWidget::~GameWidget()
@@ -31,6 +26,7 @@ GameWidget::~GameWidget()
     delete airGun;
     delete player;
     delete army;
+    delete mainMenu;
     delete scene;
 }
 
@@ -46,9 +42,9 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
         {
             airGun->rotateTurret(-rotateStep);
         }
-        if(isMenuStarted)
+        if(mainMenu->isMenuStarted)
         {
-            setPosMenuBullets(menuBulletsStatus - 1);
+            mainMenu->setPosMenuBullets(-1);
         }
         break;
     }
@@ -58,9 +54,9 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
         {
             airGun->rotateTurret(rotateStep);
         }
-        if(isMenuStarted)
+        if(mainMenu->isMenuStarted)
         {
-            setPosMenuBullets(menuBulletsStatus + 1);
+            mainMenu->setPosMenuBullets(1);
         }
         break;
     }
@@ -70,9 +66,16 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
         {
             airGun->shoot();
         }
-        if(isMenuStarted)
+        if(mainMenu->isMenuStarted)
         {
-            pushMenuText();
+            switch(mainMenu->pushMenuText())
+            {
+            case 0:
+            {
+                startNewGame();
+                break;
+            }
+            }
         }
         break;
     }
@@ -81,62 +84,6 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void GameWidget::setMainMenu()
-{
-    isMenuStarted = true;
-    setMainMenuText(mainMenuNewGame, menuTextX,
-                    (sceneHeight / 4), "<big><b><tt>New_Game</tt></b></big>");
-
-    setMainMenuText(mainMenuRecords, menuTextX,
-                    (3 * sceneHeight / 8), "<big><b><tt>Records!</tt></b></big>");
-    setMainMenuText(mainMenuHelp, menuTextX,
-                    sceneHeight / 2, "<big><b><tt>??Help??</tt></b></big>");
-
-    menuLeftBullet->setPixmap(QPixmap(":/gun/leftBullet.gif"));
-    menuRightBullet->setPixmap(QPixmap(":/gun/rightBullet.gif"));
-    setPosMenuBullets(0);
-    scene->addItem(menuLeftBullet);
-    scene->addItem(menuRightBullet);
-
-}
-
-void GameWidget::setMainMenuText(QGraphicsTextItem *mainMenuText, int posX,
-                                 int posY, QString text)
-{
-    mainMenuText->setHtml(text);
-    mainMenuText->setFont(QFont("Terminus"));
-    mainMenuText->setPos(posX, posY);
-    scene->addItem(mainMenuText);
-}
-
-
-void GameWidget::setPosMenuBullets(int changedStatus)
-{
-    menuBulletsStatus = changedStatus;// 0 - New Game; 1 - Records; 2 - Help;
-    if (menuBulletsStatus > 2)//after help
-        menuBulletsStatus = 0;// is new game
-    if (menuBulletsStatus < 0) // before new game
-        menuBulletsStatus = 2; // is help
-    menuLeftBullet->setPos(menuLeftBulletX, menuBulletsY + menuBulletsStatus * menuBulletsYDiff);
-    menuRightBullet->setPos(menuRightBulletX, menuBulletsY + menuBulletsStatus * menuBulletsYDiff);
-}
-
-
-
-void GameWidget::pushMenuText()
-{
-    switch (menuBulletsStatus)
-    {
-    case 0:
-    {
-        scene->clear();
-        menuBulletsStatus = 0;
-        isMenuStarted = false;
-        startNewGame();
-        break;
-    }
-    }
-}
 
 void GameWidget::startNewGame()
 {
