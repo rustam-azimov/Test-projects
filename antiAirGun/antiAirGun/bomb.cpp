@@ -3,7 +3,7 @@
 
 Bomb::Bomb() :
     myFollowSpeed(bombStartSpeed),
-    isWithPlane(true),
+    withPlane(true),
     animation(new ExplosiveAnimation),
     soundExplosive(":/plane/sound_plane_explosive.wav") // и тут не подключает
 {
@@ -16,7 +16,7 @@ void Bomb::advance(int step)
 {
     if (!step)
         return;
-    if (!isWithPlane)
+    if (!withPlane)
     {
         followOnGun();
         QList<QGraphicsItem *> collidingWithBomb = this->scene()->collidingItems(this);
@@ -50,5 +50,5 @@ void Bomb::followOnGun()
 
 void Bomb::dropTheBomb()
 {
-    isWithPlane = false;
+    withPlane = false;
 }
