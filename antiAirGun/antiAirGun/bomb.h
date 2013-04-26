@@ -39,7 +39,7 @@ public:
         delete animation;
     }
     /// true while bomb fly with plane.
-    bool withPlane;
+    bool isWithPlane;
     /// called when bomb cross bombDropXCoordinate = 42.
     void dropTheBomb();
     /// called when bomb touch with smth (can only be gun).
