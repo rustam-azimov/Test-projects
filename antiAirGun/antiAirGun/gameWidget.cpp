@@ -1,6 +1,8 @@
 #include "gameWidget.h"
 #include "shell.h"
 
+#include <QtAlgorithms>
+
 GameWidget::GameWidget(QWidget *parent) :
     QGraphicsView(parent),
     scene(new QGraphicsScene),
@@ -187,13 +189,8 @@ void GameWidget::gameIsOver()
         isGameStarted = false;
         scene->removeItem(airGun->base);
         scene->removeItem(airGun->turret);
-        for (int i = 0; i < 3; i++)
-        {
-            scene->removeItem(army->planeList->at(i));
-           // army->planeList->removeAt(0);
-            //army->planeList->removeFirst();
-            //delete army->planeList->first();
-        }
+        army->clear();
+
         gameOver->setPos(menuTextX, menuBulletsY +  menuBulletsYDiff);
         scene->addItem(gameOver);
     }

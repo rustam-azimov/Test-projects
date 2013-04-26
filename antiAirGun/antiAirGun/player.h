@@ -18,6 +18,7 @@ signals:
     
 public slots:
     void addScoreForPlane();
+    void emiter();
     void reduceHpFromPlane();
 
 private:

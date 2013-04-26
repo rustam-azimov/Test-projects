@@ -50,10 +50,10 @@ signals:
     void bombExploded();
 
 protected:
-    /// do nothing while bool withPlane = true. And call followOnGun() otherwise.
+    /// do nothing while bool isWithPlane = true. And call followOnGun() otherwise.
     void advance(int step);
 private:
-    /// current follow speed, used only when withPlane = false.
+    /// current follow speed, used only when isWithPlane = false.
     qreal myFollowSpeed;
     ExplosiveAnimation *animation;
     QSound soundExplosive;
