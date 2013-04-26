@@ -34,8 +34,8 @@ private:
 
     qreal const scale;
 
-    bool bombWithMe;
-    bool bombOnScene;
+    bool isBombing;
+    bool isBombOnScene;
 
     qreal currX;
     qreal currY;
