@@ -9,8 +9,8 @@
 /**
  * @file airGun.h
  *
- * Implementation of AirGun class.
- * Contained all to create and rule the turret.
+ * Реализация класса AirGun.
+ * Содержит все необходимое для создания и управления турелью.
  */
 
 // Умирает от 5 бомб.

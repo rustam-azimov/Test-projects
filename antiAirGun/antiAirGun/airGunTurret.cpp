@@ -25,6 +25,10 @@ AirGunTurret::AirGunTurret() :
     this->setPos(25, 330);
     this->setTransformOriginPoint(QPointF(rotationCenterLocalX, rotationCenterLocalY));
     this->setRotation(angle);
+
+    QTimer *timerToRemove = new QTimer;
+    QObject::connect(timerToRemove, SIGNAL(timeout()), this, SLOT(removeExtraShells()));
+    timerToRemove->start(5000);
 }
 
 AirGunTurret::~AirGunTurret()
@@ -73,6 +77,21 @@ void AirGunTurret::shoot()
 void AirGunTurret::canShoot()
 {
     canShootNow = true;
+}
+
+void AirGunTurret::removeExtraShells()
+{
+    QMutableListIterator<QGraphicsItem *> i(*shellList);
+
+     while (i.hasNext())
+     {
+         QGraphicsItem* shell = i.next();
+         if ((shell->scenePos().x() > 800) || (shell->scene() == NULL))
+         {
+             i.remove();
+             delete shell;
+         }
+     }
 }
 
 
