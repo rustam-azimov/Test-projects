@@ -6,12 +6,16 @@ GameWidget::GameWidget(QWidget *parent) :
     scene(new QGraphicsScene),
     player(new Player),
     isGameStarted(false),
-    background(new QGraphicsPixmapItem(QPixmap(":/background.gif"))),
+    isMenuStarted(true),
+    background(new QGraphicsPixmapItem(QPixmap(":/game/background.gif"))),
+    gameOver(new QGraphicsPixmapItem(QPixmap(":/game/game_over.gif"))),
     menuBulletsStatus(0)
 {
     scene->setSceneRect(0, 0, sceneWidth, sceneHeight);
     setScene(scene);
     scene->setBackgroundBrush(Qt::white);
+    QObject::connect(player, SIGNAL(gameOver()),
+                     this, SLOT(gameIsOver()));
     mainMenuNewGame = new QGraphicsTextItem;
     mainMenuRecords = new QGraphicsTextItem;
     mainMenuHelp = new QGraphicsTextItem;
@@ -39,7 +43,8 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
         if (isGameStarted)
         {
             airGun->rotateTurret(-rotateStep);
-        } else
+        }
+        if(isMenuStarted)
         {
             setPosMenuBullets(menuBulletsStatus - 1);
         }
@@ -50,7 +55,8 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
         if (isGameStarted)
         {
             airGun->rotateTurret(rotateStep);
-        } else
+        }
+        if(isMenuStarted)
         {
             setPosMenuBullets(menuBulletsStatus + 1);
         }
@@ -61,7 +67,8 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
         if(isGameStarted)
         {
             airGun->shoot();
-        } else
+        }
+        if(isMenuStarted)
         {
             pushMenuText();
         }
@@ -74,7 +81,7 @@ void GameWidget::keyPressEvent(QKeyEvent *event)
 
 void GameWidget::setMainMenu()
 {
-
+    isMenuStarted = true;
     setMainMenuText(mainMenuNewGame, menuTextX,
                     (sceneHeight / 4), "<big><b><tt>New_Game</tt></b></big>");
 
@@ -122,6 +129,7 @@ void GameWidget::pushMenuText()
     {
         scene->clear();
         menuBulletsStatus = 0;
+        isMenuStarted = false;
         startNewGame();
         break;
     }
@@ -170,6 +178,27 @@ void GameWidget::setNewScore(int newScore)
 void GameWidget::setNewHP(int newHp)
 {
     healthPoints->setHtml("<B>HP : " + QString::number(newHp) + "</B>");
+}
+
+void GameWidget::gameIsOver()
+{
+    if (isGameStarted)
+    {
+        isGameStarted = false;
+        scene->removeItem(airGun->base);
+        scene->removeItem(airGun->turret);
+        for (int i = 0; i < 3; i++)
+        {
+            scene->removeItem(army->planeList->at(i));
+           // army->planeList->removeAt(0);
+            //army->planeList->removeFirst();
+            //delete army->planeList->first();
+        }
+        gameOver->setPos(menuTextX, menuBulletsY +  menuBulletsYDiff);
+        scene->addItem(gameOver);
+    }
+
+    //setMainMenu();// VERY BIG problems...
 }
 
 

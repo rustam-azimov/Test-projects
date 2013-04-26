@@ -11,19 +11,23 @@ EnemyArmy::EnemyArmy(QGraphicsScene *scene, Player *player) :
 {
     qsrand(QTime::currentTime().msec());
 
-    QTimer *timerToAdd = new QTimer;
+    timerToAdd = new QTimer;
     QObject::connect(timerToAdd, SIGNAL(timeout()), this, SLOT(createPlane()));
     timerToAdd->start(3500);
 
-    QTimer *timerToRemove = new QTimer;
+    timerToRemove = new QTimer;
     QObject::connect(timerToRemove, SIGNAL(timeout()), this, SLOT(removeExtraPlanes()));
-    timerToRemove->start(3500);
+    timerToRemove->start(5500);
+
+    QObject::connect(pPlayer, SIGNAL(gameOver()), this, SLOT(stopWar()));
 }
 
 EnemyArmy::~EnemyArmy()
 {
     planeList->clear();
     delete planeList;
+    delete timerToRemove;
+    delete timerToAdd;
 }
 
 void EnemyArmy::createPlane()
@@ -45,15 +49,17 @@ void EnemyArmy::removeExtraPlanes()
      while (i.hasNext())
      {
          QGraphicsItem* plane = i.next();
-         if (plane->scene() == 0)
+         if ((plane->scenePos().x() < -300) || (plane->scene() == NULL))
          {
-             i.remove();
-         }
-         if (plane->scenePos().x() < -300)
-         {
-             pScene->removeItem(plane);
              i.remove();
              delete plane;
          }
      }
+}
+
+void EnemyArmy::stopWar()
+{
+    planeList->clear();
+    QObject::disconnect(timerToAdd, SIGNAL(timeout()), this, SLOT(createPlane()));
+    QObject::disconnect(timerToRemove, SIGNAL(timeout()), this, SLOT(removeExtraPlanes()));
 }

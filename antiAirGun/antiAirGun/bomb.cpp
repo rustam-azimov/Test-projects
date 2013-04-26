@@ -1,6 +1,8 @@
 #include "bomb.h"
 #include "qmath.h"
 
+#include <QMutableListIterator>
+
 Bomb::Bomb() :
     myFollowSpeed(bombStartSpeed),
     withPlane(true),
@@ -20,10 +22,12 @@ void Bomb::advance(int step)
     {
         followOnGun();
         QList<QGraphicsItem *> collidingWithBomb = this->scene()->collidingItems(this);
-        QList<QGraphicsItem *>::Iterator iter;
-        for (iter = collidingWithBomb.begin(); iter != collidingWithBomb.end(); iter++)
+
+        QMutableListIterator<QGraphicsItem *> i(collidingWithBomb);
+
+        while (i.hasNext())
         {
-            QGraphicsItem *airGunBase = *iter;
+            QGraphicsItem *airGunBase = i.next();
             if (airGunBase->collidesWithItem(this))
             {
                 emit bombExploded();

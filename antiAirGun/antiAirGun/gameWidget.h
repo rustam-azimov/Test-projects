@@ -31,6 +31,7 @@ class GameWidget : public QGraphicsView
 public:
     GameWidget(QWidget *parent = 0);
     QGraphicsScene *scene;
+    Player *player;
     ~GameWidget();
     
 protected:
@@ -38,7 +39,7 @@ protected:
 
 private:
     bool isGameStarted;
-    Player *player;
+    bool isMenuStarted;
     AirGun *airGun;
     EnemyArmy *army;
     QGraphicsTextItem *score;
@@ -47,6 +48,7 @@ private:
     QGraphicsTextItem *mainMenuRecords;
     QGraphicsTextItem *mainMenuHelp;
     QGraphicsPixmapItem *background;
+    QGraphicsPixmapItem *gameOver;
     QGraphicsPixmapItem *menuLeftBullet;
     QGraphicsPixmapItem *menuRightBullet;
     int menuBulletsStatus;
@@ -60,6 +62,7 @@ private:
 private slots:
     void setNewScore(int newScore);
     void setNewHP(int newHp);
+    void gameIsOver();
 };
 
 #endif // GAMEWIDGET_H

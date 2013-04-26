@@ -4,12 +4,13 @@
         <file>gun/animation_shoot.gif</file>
         <file>gun/base.gif</file>
         <file>gun/gun.gif</file>
-        <file>background.gif</file>
         <file>plane/bomb.gif</file>
         <file>plane/plane.gif</file>
         <file>gun/sound_shoot2.wav</file>
         <file>plane/sound_plane_explosive.wav</file>
         <file>gun/leftBullet.gif</file>
         <file>gun/rightBullet.gif</file>
+        <file>game/background.gif</file>
+        <file>game/game_over.gif</file>
     </qresource>
 </RCC>

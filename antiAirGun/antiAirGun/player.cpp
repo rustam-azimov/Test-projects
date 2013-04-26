@@ -21,5 +21,11 @@ void Player::reduceHpFromPlane()
     healthPoints--;
     if (healthPoints < 0)
         healthPoints = 0;
+    if (healthPoints == 0)
+    {
+        emit gameOver();
+    }
     emit hpChanged(healthPoints);
+
 }
+

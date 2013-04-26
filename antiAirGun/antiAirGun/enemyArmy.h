@@ -17,18 +17,21 @@ class EnemyArmy : public QObject
 public:
     EnemyArmy(QGraphicsScene *scene, Player *player);
     ~EnemyArmy();
+    QList<QGraphicsItem *> *planeList;
 
 protected:
     void atack();
 
 private:
-    QList<QGraphicsItem *> *planeList;
     QGraphicsScene *pScene;
     Player *pPlayer;
+    QTimer *timerToRemove;
+    QTimer *timerToAdd;
 
-public slots:
+private slots:
     void createPlane();
     void removeExtraPlanes();
+    void stopWar();
 };
 
 #endif // ENEMYARMY_H
