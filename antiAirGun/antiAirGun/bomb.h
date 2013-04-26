@@ -39,7 +39,7 @@ public:
         delete animation;
     }
     /// true while bomb fly with plane.
-    bool withPlane;
+    bool isWithPlane;
     /// called when bomb cross bombDropXCoordinate = 42.
     void dropTheBomb();
     /// called when bomb touch with smth (can only be gun).
@@ -50,10 +50,10 @@ signals:
     void bombExploded();
 
 protected:
-    /// do nothing while bool withPlane = true. And call followOnGun() otherwise.
+    /// do nothing while bool isWithPlane = true. And call followOnGun() otherwise.
     void advance(int step);
 private:
-    /// current follow speed, used only when withPlane = false.
+    /// current follow speed, used only when isWithPlane = false.
     qreal myFollowSpeed;
     ExplosiveAnimation *animation;
     QSound soundExplosive;
