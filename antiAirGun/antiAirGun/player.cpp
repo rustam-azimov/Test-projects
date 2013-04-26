@@ -1,5 +1,7 @@
 #include "player.h"
 
+#include <QTimer>
+
 Player::Player() :
     score(0),
     scoreForPlane(50),
@@ -23,9 +25,13 @@ void Player::reduceHpFromPlane()
         healthPoints = 0;
     if (healthPoints == 0)
     {
-        emit gameOver();
+        QTimer::singleShot(2000, this, SLOT(emiter()));
     }
     emit hpChanged(healthPoints);
+}
 
+void Player::emiter()
+{
+    emit gameOver();
 }
 

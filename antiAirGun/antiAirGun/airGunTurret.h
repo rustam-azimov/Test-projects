@@ -28,6 +28,9 @@ public:
     void upgradeBarrelCoordinates();
     void shoot();
 
+protected:
+    void clear();
+
 private slots:
     void canShoot();
     void removeExtraShells();

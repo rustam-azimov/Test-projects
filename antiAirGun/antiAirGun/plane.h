@@ -13,10 +13,7 @@ class Plane : public QObject, public QGraphicsPixmapItem
 Q_OBJECT
 public:
     Plane(qreal startX, qreal startY);
-    ~Plane() {
-        delete myBomb;
-        delete animation;
-    }
+    ~Plane();
 
     void explosive();
     Bomb *myBomb;
@@ -34,8 +31,8 @@ private:
 
     qreal const scale;
 
-    bool isBombing;
-    bool isBombOnScene;
+    bool bombWithMe;
+    bool bombOnScene;
 
     qreal currX;
     qreal currY;

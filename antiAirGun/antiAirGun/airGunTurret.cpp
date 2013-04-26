@@ -33,7 +33,7 @@ AirGunTurret::AirGunTurret() :
 
 AirGunTurret::~AirGunTurret()
 {
-    shellList->clear();
+    clear();
     delete shellList;
     delete animation;
 }
@@ -92,6 +92,15 @@ void AirGunTurret::removeExtraShells()
              delete shell;
          }
      }
+}
+
+void AirGunTurret::clear()
+{
+    while (!shellList->isEmpty())
+    {
+        delete shellList->first();
+        shellList->removeFirst();
+    }
 }
 
 

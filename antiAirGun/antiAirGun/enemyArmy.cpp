@@ -5,7 +5,7 @@
 #include <QMutableListIterator>
 
 EnemyArmy::EnemyArmy(QGraphicsScene *scene, Player *player) :
-    planeList(new QList<QGraphicsItem *>),
+    planeList(new QList<Plane *>),
     pScene(scene),
     pPlayer(player)
 {
@@ -17,14 +17,12 @@ EnemyArmy::EnemyArmy(QGraphicsScene *scene, Player *player) :
 
     timerToRemove = new QTimer;
     QObject::connect(timerToRemove, SIGNAL(timeout()), this, SLOT(removeExtraPlanes()));
-    timerToRemove->start(5500);
-
-    QObject::connect(pPlayer, SIGNAL(gameOver()), this, SLOT(stopWar()));
+    timerToRemove->start(5000);
 }
 
 EnemyArmy::~EnemyArmy()
 {
-    planeList->clear();
+    clear();
     delete planeList;
     delete timerToRemove;
     delete timerToAdd;
@@ -36,7 +34,6 @@ void EnemyArmy::createPlane()
     pScene->addItem(plane);
 
     QObject::connect(plane, SIGNAL(planeHit()), pPlayer, SLOT(addScoreForPlane()));
-
     QObject::connect(plane->myBomb, SIGNAL(bombExploded()), pPlayer, SLOT(reduceHpFromPlane()));
 
     planeList->prepend(plane);
@@ -44,11 +41,11 @@ void EnemyArmy::createPlane()
 
 void EnemyArmy::removeExtraPlanes()
 {
-    QMutableListIterator<QGraphicsItem *> i(*planeList);
+    QMutableListIterator<Plane *> i(*planeList);
 
      while (i.hasNext())
      {
-         QGraphicsItem* plane = i.next();
+         Plane* plane = i.next();
          if ((plane->scenePos().x() < -300) || (plane->scene() == NULL))
          {
              i.remove();
@@ -57,9 +54,14 @@ void EnemyArmy::removeExtraPlanes()
      }
 }
 
-void EnemyArmy::stopWar()
+void EnemyArmy::clear()
 {
-    planeList->clear();
     QObject::disconnect(timerToAdd, SIGNAL(timeout()), this, SLOT(createPlane()));
     QObject::disconnect(timerToRemove, SIGNAL(timeout()), this, SLOT(removeExtraPlanes()));
+    while (!planeList->isEmpty())
+    {
+        delete planeList->first();
+        planeList->removeFirst();
+    }
 }
+
