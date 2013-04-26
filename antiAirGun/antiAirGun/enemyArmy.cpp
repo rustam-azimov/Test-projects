@@ -45,7 +45,7 @@ void EnemyArmy::removeExtraPlanes()
      while (i.hasNext())
      {
          QGraphicsItem* plane = i.next();
-         if ((plane->scenePos().x() < -100) || (plane->scene() == NULL))
+         if ((plane->scenePos().x() < -300) || (plane->scene() == NULL))
          {
              i.remove();
              delete plane;
