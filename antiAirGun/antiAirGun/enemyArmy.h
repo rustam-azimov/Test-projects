@@ -28,7 +28,7 @@ private:
     QTimer *timerToRemove;
     QTimer *timerToAdd;
 
-public slots:
+private slots:
     void createPlane();
     void removeExtraPlanes();
     void stopWar();

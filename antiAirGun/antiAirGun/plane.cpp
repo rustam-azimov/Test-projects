@@ -1,7 +1,7 @@
 #include "plane.h"
 
 #include <qmath.h>
-
+#include <QMutableListIterator>
 
 Plane::Plane(qreal startX, qreal startY):
     animation(new ExplosiveAnimation),
@@ -45,14 +45,16 @@ void Plane::advance(int step)
         isBombOnScene = true;
         this->scene()->addItem(myBomb);
     }
-    QList<QGraphicsItem *> collidingWithShell = this->scene()->collidingItems(this);
-    QList<QGraphicsItem *>::Iterator iter;
-    for (iter = collidingWithShell.begin(); iter != collidingWithShell.end(); iter++)
+    QList<QGraphicsItem *> collidingWithPlane = this->scene()->collidingItems(this);
+
+    QMutableListIterator<QGraphicsItem *> i(collidingWithPlane);
+
+    while (i.hasNext())
     {
-        QGraphicsItem *shell = *iter;
-        if (shell->collidesWithItem(this))
+        QGraphicsItem *plane = i.next();
+        if (plane->collidesWithItem(this))
         {            
-            this->scene()->removeItem(shell);
+            this->scene()->removeItem(plane);
 
             emit planeHit();
 
@@ -64,7 +66,6 @@ void Plane::advance(int step)
             this->scene()->removeItem(this);
 
             soundExplosive.play();
-
         }
     }
 

@@ -30,6 +30,7 @@ public:
 
 private slots:
     void canShoot();
+    void removeExtraShells();
 
 private:
     QList<QGraphicsItem *> *shellList;
