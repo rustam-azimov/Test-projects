@@ -22,6 +22,12 @@ Plane::Plane(qreal startX, qreal startY):
 
 }
 
+Plane::~Plane()
+{
+    delete myBomb;
+    delete animation;
+}
+
 void Plane::explosive()
 {
     animation->setScene(this->scene());
