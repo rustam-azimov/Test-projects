@@ -14,6 +14,7 @@ public:
 signals:
     void scoreChanged(int);
     void hpChanged(int);
+    void gameOver();
     
 public slots:
     void addScoreForPlane();

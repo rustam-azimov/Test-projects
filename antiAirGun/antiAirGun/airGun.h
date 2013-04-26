@@ -22,10 +22,10 @@ public:
 
     void rotateTurret(int step);
     void shoot();
-
-protected:
     AirGunBase *base;
     AirGunTurret *turret;
+
+protected:
     int currentRotation;
 
     int const maxRotate;
