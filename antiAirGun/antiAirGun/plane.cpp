@@ -10,7 +10,7 @@ Plane::Plane(qreal startX, qreal startY):
     currX(startX),
     currY(startY),
     height(startY),
-    isBombing(false),
+    isBombed(false),
     isBombOnScene(false)
 {
     soundExplosive.setLoops(1);
@@ -20,6 +20,12 @@ Plane::Plane(qreal startX, qreal startY):
     myBomb = new Bomb();
     myBomb->setPos(currX + bombX, currY + bombY);
 
+}
+
+Plane::~Plane()
+{
+    delete myBomb;
+    delete animation;
 }
 
 void Plane::explosive()
@@ -59,7 +65,7 @@ void Plane::advance(int step)
             emit planeHit();
 
             this->explosive();
-            if (!isBombing)
+            if (!isBombed)
             {
                 this->scene()->removeItem(this->myBomb);
             }
@@ -71,11 +77,11 @@ void Plane::advance(int step)
 
     setNewPos();
     setPos(currX, currY);
-    if ((currX + bombX <= bombDropXCoordinate) && (!isBombing))
+    if ((currX + bombX <= bombDropXCoordinate) && (!isBombed))
     {
         myBomb->dropTheBomb();
-        isBombing = true;
-    } else if (!isBombing)
+        isBombed = true;
+    } else if (!isBombed)
     {
         myBomb->setPos(currX + bombX, currY + bombY);
     }
