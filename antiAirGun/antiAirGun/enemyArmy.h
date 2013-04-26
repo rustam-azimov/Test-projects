@@ -26,7 +26,7 @@ private:
     QGraphicsScene *pScene;
     Player *pPlayer;
 
-public slots:
+private slots:
     void createPlane();
     void removeExtraPlanes();
 };
