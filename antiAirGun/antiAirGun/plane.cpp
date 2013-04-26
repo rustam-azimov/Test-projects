@@ -10,8 +10,8 @@ Plane::Plane(qreal startX, qreal startY):
     currX(startX),
     currY(startY),
     height(startY),
-    bombWithMe(true),
-    bombOnScene(false)
+    isBombed(false),
+    isBombOnScene(false)
 {
     soundExplosive.setLoops(1);
     this->setPixmap(QPixmap(":/plane/plane.gif"));
@@ -46,9 +46,9 @@ void Plane::advance(int step)
     if (!step)
         return;
 
-    if (!bombOnScene)
+    if (!isBombOnScene)
     {
-        bombOnScene = true;
+        isBombOnScene = true;
         this->scene()->addItem(myBomb);
     }
     QList<QGraphicsItem *> collidingWithPlane = this->scene()->collidingItems(this);
@@ -65,7 +65,7 @@ void Plane::advance(int step)
             emit planeHit();
 
             this->explosive();
-            if (bombWithMe)
+            if (!isBombed)
             {
                 this->scene()->removeItem(this->myBomb);
             }
@@ -77,11 +77,11 @@ void Plane::advance(int step)
 
     setNewPos();
     setPos(currX, currY);
-    if ((currX + bombX <= bombDropXCoordinate) && (bombWithMe))
+    if ((currX + bombX <= bombDropXCoordinate) && (!isBombed))
     {
         myBomb->dropTheBomb();
-        bombWithMe = false;
-    } else if (bombWithMe)
+        isBombed = true;
+    } else if (!isBombed)
     {
         myBomb->setPos(currX + bombX, currY + bombY);
     }
