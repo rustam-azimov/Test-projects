@@ -22,7 +22,7 @@ namespace GifAnimationConsts
 }
 
 /**
- * @class ifAnimation
+ * @class GifAnimation
  *
  * @brief
  * To play gif-animatiom on scene you should set a QLabel to the

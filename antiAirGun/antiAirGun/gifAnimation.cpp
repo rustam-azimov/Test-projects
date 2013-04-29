@@ -1,7 +1,7 @@
 #include "gifAnimation.h"
 
 GifAnimation::GifAnimation(const QString &fileName) :
-    scale(1),
+    scale(GifAnimationConsts::standardScale),
     isSceneAlreadySet(false),
     currSpeed(GifAnimationConsts::standardSpeed),
     animation(new QLabel()),
