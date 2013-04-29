@@ -1,12 +1,12 @@
 #include "bomb.h"
-#include "qmath.h"
+#include <qmath.h>
 
 #include <QMutableListIterator>
 
 Bomb::Bomb() :
     myFollowSpeed(bombStartSpeed),
     isWithPlane(true),
-    animation(new ExplosiveAnimation),
+    animation(new GifAnimation(":/plane/animation_bomb_explosive.gif")),
     soundExplosive(":/plane/sound_plane_explosive.wav") // и тут не подключает
 {
     soundExplosive.setLoops(1);
@@ -30,8 +30,9 @@ void Bomb::advance(int step)
             QGraphicsItem *airGunBase = i.next();
             if (airGunBase->collidesWithItem(this))
             {
+                playExplosiveAnimation();
+
                 emit bombExploded();
-                this->bombExplosive();
                 soundExplosive.play();
                 this->scene()->removeItem(this);
              }
@@ -39,10 +40,16 @@ void Bomb::advance(int step)
     }
 }
 
-void Bomb::bombExplosive()
+void Bomb::playExplosiveAnimation()
 {
-    animation->setScene(this->scene());
-    animation->setPos(this->scenePos().x(), this->scenePos().y());
+    animation->setScale(0.6);
+
+    animation->setSpeed(150);
+    if (!animation->isSceneSet())
+        animation->setOnScene(this->scene());
+
+    animation->setPos(20, 240);
+
     animation->start();
 }
 

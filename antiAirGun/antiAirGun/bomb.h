@@ -4,8 +4,9 @@
 #include <QObject>
 
 #include <QGraphicsPixmapItem>
-#include "explosiveAnimation.h"
-#include "QSound"
+#include <QSound>
+
+#include "gifAnimation.h"
 
 /**
  * @file airGun.h
@@ -43,7 +44,7 @@ public:
     /// called when bomb cross bombDropXCoordinate = 42.
     void dropTheBomb();
     /// called when bomb touch with smth (can only be gun).
-    void bombExplosive();
+    void playExplosiveAnimation();
 
 signals:
     /// emited when called bombExplosive().
@@ -55,7 +56,7 @@ protected:
 private:
     /// current follow speed, used only when isWithPlane = false.
     qreal myFollowSpeed;
-    ExplosiveAnimation *animation;
+    GifAnimation *animation;
     QSound soundExplosive;
     /// increase myFollowSpeed on bombGAcceleration and move down on myFollowSpeed.
     void followOnGun();

@@ -13,12 +13,11 @@
  * Содержит все необходимое для создания и управления турелью.
  */
 
-// Умирает от 5 бомб.
+
 class AirGun
 {
 public:
     AirGun(QGraphicsScene *scene);
-    ~AirGun();
 
     void rotateTurret(int step);
     void shoot();

@@ -7,7 +7,7 @@
 #include <QList>
 #include <QObject>
 
-#include "shootAnimation.h"
+#include "gifAnimation.h"
 
 /**
  * @file airGunTurret.h
@@ -36,9 +36,14 @@ private slots:
     void removeExtraShells();
 
 private:
+    void playShootAnimation();
+
+private:
     QList<QGraphicsItem *> *shellList;
-    ShootAnimation *animation;
+    GifAnimation *animation;
     QSound soundShoot;
+
+    qreal const animationScale;
 
     int const rotationCenterLocalX;
     int const rotationCenterLocalY;

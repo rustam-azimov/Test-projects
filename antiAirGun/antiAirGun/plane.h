@@ -5,7 +5,7 @@
 #include <QtGui/QGraphicsPixmapItem>
 #include <QSound>
 
-#include "explosiveAnimation.h"
+#include "gifAnimation.h"
 #include "bomb.h"
 
 class Plane : public QObject, public QGraphicsPixmapItem
@@ -26,7 +26,10 @@ protected:
     void setNewPos();
 
 private:
-    ExplosiveAnimation *animation;
+    void playExplosiveAnimation();
+
+private:
+    GifAnimation *animation;
     QSound soundExplosive;
 
     qreal const scale;

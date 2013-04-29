@@ -1,12 +1,11 @@
 #include "gameWidget.h"
-#include "shell.h"
+#include "myConsts.h"
 
 #include <QtAlgorithms>
 
 GameWidget::GameWidget(QWidget *parent) :
     QGraphicsView(parent),
     scene(new QGraphicsScene),
-    player(new Player),
     mainMenu(new MainMenu(scene)),
     isGameStarted(false),
     background(new QGraphicsPixmapItem(QPixmap(":/game/background.gif"))),
@@ -15,17 +14,12 @@ GameWidget::GameWidget(QWidget *parent) :
     scene->setSceneRect(0, 0, sceneWidth, sceneHeight);
     setScene(scene);
     scene->setBackgroundBrush(Qt::white);
-    QObject::connect(player, SIGNAL(gameOver()),
-                     this, SLOT(gameIsOver()));
 
     mainMenu->setMainMenu();
 }
 
 GameWidget::~GameWidget()
 {
-    delete airGun;
-    delete player;
-    delete army;
     delete mainMenu;
     delete scene;
 }
@@ -92,11 +86,14 @@ void GameWidget::startNewGame()
     background->setPos(0, 328);
     scene->addItem(background);
 
+    player = new Player;
+    army = new EnemyArmy(scene, player);
+    airGun = new AirGun(scene);
+
     setGameText();
 
-    army = new EnemyArmy(scene, player);
-
-    airGun = new AirGun(scene);
+    QObject::connect(player, SIGNAL(gameOver()),
+                     this, SLOT(gameIsOver()));
 }
 
 
@@ -110,11 +107,11 @@ void GameWidget::setGameText()
 
     QObject::connect(player, SIGNAL(scoreChanged(int)), this, SLOT(setNewScore(int)));
 
-    healthPoints = new QGraphicsTextItem;
+    health = new QGraphicsTextItem;
     setNewHP(5);
-    healthPoints->setFont(QFont("Terminus"));
-    healthPoints->setPos(645, 303);
-    scene->addItem(healthPoints);
+    health->setFont(QFont("Terminus"));
+    health->setPos(645, 303);
+    scene->addItem(health);
 
     QObject::connect(player, SIGNAL(hpChanged(int)), this, SLOT(setNewHP(int)));
 }
@@ -126,7 +123,7 @@ void GameWidget::setNewScore(int newScore)
 
 void GameWidget::setNewHP(int newHp)
 {
-    healthPoints->setHtml("<B>HP : " + QString::number(newHp) + "</B>");
+    health->setHtml("<B>HP : " + QString::number(newHp) + "</B>");
 }
 
 void GameWidget::gameIsOver()
@@ -134,15 +131,19 @@ void GameWidget::gameIsOver()
     if (isGameStarted)
     {
         isGameStarted = false;
-        scene->removeItem(airGun->base);
-        scene->removeItem(airGun->turret);
+
+        airGun->turret->setVisible(false);
+        airGun->base->setVisible(false);
+
         army->clear();
 
         gameOver->setPos(menuTextX, menuBulletsY +  menuBulletsYDiff);
         scene->addItem(gameOver);
     }
 
-    //setMainMenu();// VERY BIG problems...
+    delete army;
+    delete player;
+    delete airGun;
 }
 
 
