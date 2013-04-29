@@ -12,12 +12,6 @@ AirGun::AirGun(QGraphicsScene *scene) :
     turret->setAngle(currentRotation);
 }
 
-AirGun::~AirGun()
-{
-    delete base;
-    delete turret;
-}
-
 void AirGun::rotateTurret(int step)
 {
     if (currentRotation > maxRotate)

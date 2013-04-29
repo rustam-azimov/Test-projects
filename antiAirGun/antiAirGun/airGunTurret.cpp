@@ -7,8 +7,9 @@
 
 AirGunTurret::AirGunTurret() :
     shellList(new QList<QGraphicsItem *>),
-    animation(new ShootAnimation),
+    animation(new GifAnimation(":/gun/animation_shoot.gif")),
     soundShoot(":/gun/sound_shoot2.wav"), // Вот тут например не подключает!
+    animationScale(0.7),
     rotationCenterLocalX(70),
     rotationCenterLocalY(31),
     size(0.3),
@@ -62,13 +63,9 @@ void AirGunTurret::shoot()
     shellList->prepend(shell);
     this->scene()->addItem(shell);
 
-    if (!animation->isSceneSet())
-        animation->setScene(this->scene());
+    playShootAnimation();
 
-    animation->setPos(barrelX, barrelY);
-    animation->start();
-
-    soundShoot.play();
+//    soundShoot.play();
 
     canShootNow = false;
     QTimer::singleShot(2000, this, SLOT(canShoot()));
@@ -92,6 +89,19 @@ void AirGunTurret::removeExtraShells()
              delete shell;
          }
      }
+}
+
+void AirGunTurret::playShootAnimation()
+{
+    animation->setScale(0.7);
+
+    if (!animation->isSceneSet())
+        animation->setOnScene(this->scene());
+
+    animation->setPos(barrelX - (64 * animationScale) / 2 + 4,
+                      barrelY - (64 * animationScale) / 2 - 2);
+
+    animation->start();
 }
 
 void AirGunTurret::clear()
