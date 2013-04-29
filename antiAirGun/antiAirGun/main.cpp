@@ -2,14 +2,14 @@
 #include <QTimer>
 
 #include "gameWidget.h"
-#include "airGun.h"
+#include "myConsts.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
     GameWidget view;
- //   view.setFixedSize(sceneWidth + 2, sceneHeight + 2);
+    view.setFixedSize(sceneWidth + 2, sceneHeight + 2);
     view.show();
 
     QTimer timer;
