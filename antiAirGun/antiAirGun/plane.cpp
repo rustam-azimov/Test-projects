@@ -4,7 +4,7 @@
 #include <QMutableListIterator>
 
 Plane::Plane(qreal startX, qreal startY):
-    animation(new ExplosiveAnimation),
+    animation(new GifAnimation(":/plane/animation_explosive.gif")),
     soundExplosive(":/plane/sound_plane_explosive.wav"), // Ну и наконец, тут не подключает
     scale(0.3),
     currX(startX),
@@ -28,17 +28,24 @@ Plane::~Plane()
     delete animation;
 }
 
-void Plane::explosive()
-{
-    animation->setScene(this->scene());
-    animation->setPos(currX, currY);
-    animation->start();
-}
-
 void Plane::setNewPos()
 {
     currX = currX - 3;
     currY = height - 20 * qCos(currX / 50);
+}
+
+void Plane::playExplosiveAnimation()
+{
+    animation->setScale(0.5);
+
+    animation->setSpeed(180);
+    if (!animation->isSceneSet())
+        animation->setOnScene(this->scene());
+
+    animation->setPos(currX, currY + 30);
+    animation->setRotation(-90);
+
+    animation->start();
 }
 
 void Plane::advance(int step)
@@ -59,19 +66,20 @@ void Plane::advance(int step)
     {
         QGraphicsItem *plane = i.next();
         if (plane->collidesWithItem(this))
-        {            
+        {
+            playExplosiveAnimation();
+
             this->scene()->removeItem(plane);
 
             emit planeHit();
 
-            this->explosive();
             if (!isBombed)
             {
                 this->scene()->removeItem(this->myBomb);
             }
             this->scene()->removeItem(this);
 
-            soundExplosive.play();
+//            soundExplosive.play();
         }
     }
 

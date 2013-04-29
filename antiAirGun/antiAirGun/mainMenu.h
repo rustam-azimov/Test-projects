@@ -9,7 +9,6 @@ class MainMenu
 {
 public:
     MainMenu(QGraphicsScene* scene);
-    ~MainMenu();
     bool isMenuStarted;
     void setMainMenu();
     void setPosMenuBullets(int diffStatus);

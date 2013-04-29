@@ -17,11 +17,10 @@ SOURCES += main.cpp \
     shell.cpp \
     plane.cpp \
     enemyArmy.cpp \
-    shootAnimation.cpp \
-    explosiveAnimation.cpp \
     player.cpp \
     bomb.cpp \
-    mainMenu.cpp
+    mainMenu.cpp \
+    gifAnimation.cpp
 
 HEADERS  += \
     airGunTurret.h \
@@ -32,11 +31,10 @@ HEADERS  += \
     plane.h \
     enemyArmy.h \
     myConsts.h \
-    shootAnimation.h \
-    explosiveAnimation.h \
     player.h \
     bomb.h \
-    mainMenu.h
+    mainMenu.h \
+    gifAnimation.h
 
 RESOURCES += \
     resourses.qrc

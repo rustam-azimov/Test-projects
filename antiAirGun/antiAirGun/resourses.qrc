@@ -1,15 +1,16 @@
 <RCC>
     <qresource prefix="/">
-        <file>plane/animation_explosive.gif</file>
         <file>gun/animation_shoot.gif</file>
-        <file>gun/base.gif</file>
-        <file>gun/gun.gif</file>
-        <file>plane/bomb.gif</file>
-        <file>plane/plane.gif</file>
-        <file>gun/sound_shoot2.wav</file>
-        <file>plane/sound_plane_explosive.wav</file>
         <file>gun/leftBullet.gif</file>
         <file>gun/rightBullet.gif</file>
+        <file>gun/base.gif</file>
+        <file>gun/gun.gif</file>
+        <file>gun/sound_shoot2.wav</file>
+        <file>plane/animation_explosive.gif</file>
+        <file>plane/animation_bomb_explosive.gif</file>
+        <file>plane/bomb.gif</file>
+        <file>plane/plane.gif</file>
+        <file>plane/sound_plane_explosive.wav</file>
         <file>game/background.gif</file>
         <file>game/game_over.gif</file>
     </qresource>

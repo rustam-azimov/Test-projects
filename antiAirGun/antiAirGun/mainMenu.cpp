@@ -13,15 +13,6 @@ MainMenu::MainMenu(QGraphicsScene* scene) :
     menuRightBullet = new QGraphicsPixmapItem;
 }
 
-MainMenu::~MainMenu()
-{
-    delete mainMenuNewGame;
-    delete mainMenuRecords;
-    delete mainMenuHelp;
-    delete menuLeftBullet;
-    delete menuRightBullet;
-}
-
 void MainMenu::setMainMenu()
 {
     isMenuStarted = true;

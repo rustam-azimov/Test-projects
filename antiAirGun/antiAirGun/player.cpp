@@ -25,7 +25,7 @@ void Player::reduceHpFromPlane()
         healthPoints = 0;
     if (healthPoints == 0)
     {
-        QTimer::singleShot(2000, this, SLOT(emiter()));
+        QTimer::singleShot(1100, this, SLOT(emiter()));
     }
     emit hpChanged(healthPoints);
 }
@@ -34,4 +34,3 @@ void Player::emiter()
 {
     emit gameOver();
 }
-

@@ -10,13 +10,6 @@
 #include "enemyArmy.h"
 #include "mainMenu.h"
 
-
-// Стартовое меню.
-// Следующий уровень.
-// Бос???
-
-
-
 class GameWidget : public QGraphicsView
 {
     Q_OBJECT
@@ -35,7 +28,7 @@ private:
     EnemyArmy *army;
     MainMenu *mainMenu;
     QGraphicsTextItem *score;
-    QGraphicsTextItem *healthPoints;
+    QGraphicsTextItem *health;
     QGraphicsPixmapItem *background;
     QGraphicsPixmapItem *gameOver;
 
