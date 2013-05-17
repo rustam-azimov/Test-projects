@@ -213,7 +213,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 qgraphicsitem_cast<DiagramItem *>(startItems.first());
             DiagramItem *endItem =
                 qgraphicsitem_cast<DiagramItem *>(endItems.first());
-            //arrow->setColor(myLineColor); DO IT!!!
+
             CubicLine *tempArrow = startItem->arrowTo(endItem);
             if (tempArrow == NULL)
             {
@@ -221,6 +221,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 startItem->addArrow(arrow);
                 endItem->addArrow(arrow);
                 arrow->setZValue(1000.0);
+                arrow->setColor(myLineColor);
                 addItem(arrow);
                 arrow->updatePosition();
             } else
