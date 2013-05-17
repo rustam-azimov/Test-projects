@@ -41,7 +41,7 @@
 #include <QtGui>
 
 #include "diagramscene.h"
-#include "arrow.h"
+#include "cubicLine.h"
 
 //! [0]
 DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
@@ -62,9 +62,9 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
 void DiagramScene::setLineColor(const QColor &color)
 {
     myLineColor = color;
-    if (isItemChange(Arrow::Type)) {
-        Arrow *item =
-            qgraphicsitem_cast<Arrow *>(selectedItems().first());
+    if (isItemChange(CubicLine::Type)) {
+        CubicLine *item =
+            qgraphicsitem_cast<CubicLine *>(selectedItems().first());
         item->setColor(myLineColor);
         update();
     }
@@ -213,13 +213,23 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 qgraphicsitem_cast<DiagramItem *>(startItems.first());
             DiagramItem *endItem =
                 qgraphicsitem_cast<DiagramItem *>(endItems.first());
-            Arrow *arrow = new Arrow(startItem, endItem);
-            arrow->setColor(myLineColor);
-            startItem->addArrow(arrow);
-            endItem->addArrow(arrow);
-            arrow->setZValue(-1000.0);
-            addItem(arrow);
-            arrow->updatePosition();
+            //arrow->setColor(myLineColor); DO IT!!!
+            CubicLine *tempArrow = startItem->arrowTo(endItem);
+            if (tempArrow == NULL)
+            {
+                CubicLine *arrow = new CubicLine(this, startItem, endItem);
+                startItem->addArrow(arrow);
+                endItem->addArrow(arrow);
+                arrow->setZValue(1000.0);
+                addItem(arrow);
+                arrow->updatePosition();
+            } else
+            {
+                if (tempArrow->startItem() == endItem)
+                {
+                    tempArrow->setArrowTail();
+                }
+            }
         }
     }
 //! [12] //! [13]

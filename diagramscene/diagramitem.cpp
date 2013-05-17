@@ -41,7 +41,7 @@
 #include <QtGui>
 
 #include "diagramitem.h"
-#include "arrow.h"
+#include "cubicLine.h"
 
 //! [0]
 DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
@@ -86,7 +86,7 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
 //! [0]
 
 //! [1]
-void DiagramItem::removeArrow(Arrow *arrow)
+void DiagramItem::removeArrow(CubicLine *arrow)
 {
     int index = arrows.indexOf(arrow);
 
@@ -98,17 +98,28 @@ void DiagramItem::removeArrow(Arrow *arrow)
 //! [2]
 void DiagramItem::removeArrows()
 {
-    foreach (Arrow *arrow, arrows) {
+    foreach (CubicLine *arrow, arrows) {
         arrow->startItem()->removeArrow(arrow);
         arrow->endItem()->removeArrow(arrow);
         scene()->removeItem(arrow);
+        arrow->clearPoints();
         delete arrow;
     }
 }
 //! [2]
 
+CubicLine *DiagramItem::arrowTo(DiagramItem *endItem)
+{
+    foreach (CubicLine *arrow, arrows)
+        if ((arrow->endItem() == endItem)
+             || (arrow->startItem() == endItem))
+           return arrow;
+
+    return NULL;
+}
+
 //! [3]
-void DiagramItem::addArrow(Arrow *arrow)
+void DiagramItem::addArrow(CubicLine *arrow)
 {
     arrows.append(arrow);
 }
@@ -142,7 +153,7 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change,
                      const QVariant &value)
 {
     if (change == QGraphicsItem::ItemPositionChange) {
-        foreach (Arrow *arrow, arrows) {
+        foreach (CubicLine *arrow, arrows) {
             arrow->updatePosition();
         }
     }

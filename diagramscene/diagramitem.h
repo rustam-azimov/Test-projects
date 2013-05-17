@@ -58,7 +58,7 @@ class QWidget;
 class QPolygonF;
 QT_END_NAMESPACE
 
-class Arrow;
+class CubicLine;
 
 //! [0]
 class DiagramItem : public QGraphicsPolygonItem
@@ -70,13 +70,14 @@ public:
     DiagramItem(DiagramType diagramType, QMenu *contextMenu,
         QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
 
-    void removeArrow(Arrow *arrow);
+    void removeArrow(CubicLine *arrow);
     void removeArrows();
+    CubicLine *arrowTo(DiagramItem *endItem);
     DiagramType diagramType() const
         { return myDiagramType; }
     QPolygonF polygon() const
         { return myPolygon; }
-    void addArrow(Arrow *arrow);
+    void addArrow(CubicLine *arrow);
     QPixmap image() const;
     int type() const
         { return Type;}
@@ -89,7 +90,7 @@ private:
     DiagramType myDiagramType;
     QPolygonF myPolygon;
     QMenu *myContextMenu;
-    QList<Arrow *> arrows;
+    QList<CubicLine *> arrows;
 };
 //! [0]
 

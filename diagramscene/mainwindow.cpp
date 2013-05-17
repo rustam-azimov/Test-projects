@@ -45,7 +45,7 @@
 #include "diagramitem.h"
 #include "diagramscene.h"
 #include "diagramtextitem.h"
-#include "arrow.h"
+#include "cubicLine.h"
 
 const int InsertTextButton = 10;
 
@@ -69,6 +69,7 @@ MainWindow::MainWindow()
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(toolBox);
     view = new QGraphicsView(scene);
+    view->setRenderHint(QPainter::Antialiasing);
     layout->addWidget(view);
 
     QWidget *widget = new QWidget;
@@ -124,11 +125,12 @@ void MainWindow::buttonGroupClicked(int id)
 void MainWindow::deleteItem()
 {
     foreach (QGraphicsItem *item, scene->selectedItems()) {
-        if (item->type() == Arrow::Type) {
+        if (item->type() == CubicLine::Type) {
             scene->removeItem(item);
-            Arrow *arrow = qgraphicsitem_cast<Arrow *>(item);
+            CubicLine *arrow = qgraphicsitem_cast<CubicLine *>(item);
             arrow->startItem()->removeArrow(arrow);
             arrow->endItem()->removeArrow(arrow);
+            arrow->clearPoints();
             delete item;
         }
     }
@@ -136,10 +138,17 @@ void MainWindow::deleteItem()
     foreach (QGraphicsItem *item, scene->selectedItems()) {
          if (item->type() == DiagramItem::Type) {
              qgraphicsitem_cast<DiagramItem *>(item)->removeArrows();
+             scene->removeItem(item);
+             delete item;
          }
-         scene->removeItem(item);
-         delete item;
      }
+
+    foreach (QGraphicsItem *item, scene->selectedItems()) {
+        if (item->type() == DiagramTextItem::Type) {
+            scene->removeItem(item);
+            delete item;
+        }
+    }
 }
 //! [3]
 
