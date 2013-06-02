@@ -8,7 +8,7 @@ int main()
 
     startTheGame();
 
-
+    cin.get();
     return 0;
 }
 

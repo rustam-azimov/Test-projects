@@ -1,6 +1,7 @@
 #include "play.h"
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -75,6 +76,7 @@ int startSecondTour()
     int numberOfUserTry = 0;
 
     Node *secret = new Node;
+    srand(time(NULL));
     for (int i = 0; i < 4; i++)
     {
         secret->array[i] = (rand() % 6) + 1;
