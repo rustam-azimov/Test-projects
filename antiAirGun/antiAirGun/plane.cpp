@@ -5,7 +5,7 @@
 
 Plane::Plane(qreal startX, qreal startY):
     animation(new GifAnimation(":/plane/animation_explosive.gif")),
-    soundExplosive(":/plane/sound_plane_explosive.wav"), // Ну и наконец, тут не подключает
+    soundExplosive(":/plane/sound_plane_explosive.wav"),
     scale(0.3),
     currX(startX),
     currY(startY),
@@ -79,7 +79,7 @@ void Plane::advance(int step)
             }
             this->scene()->removeItem(this);
 
-//            soundExplosive.play();
+            soundExplosive.play();
         }
     }
 

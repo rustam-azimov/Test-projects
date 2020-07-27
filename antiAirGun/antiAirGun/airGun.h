@@ -1,7 +1,7 @@
 #ifndef TURRET_H
 #define TURRET_H
 
-#include <QGraphicsItem>
+#include <QtWidgets/QGraphicsItem>
 
 #include "airGunBase.h"
 #include "airGunTurret.h"

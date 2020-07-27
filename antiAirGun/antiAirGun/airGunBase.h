@@ -1,8 +1,8 @@
 #ifndef AIRGUNBASE_H
 #define AIRGUNBASE_H
 
-#include <QGraphicsPixmapItem>
-#include <QGraphicsScene>
+#include <QtWidgets/QGraphicsPixmapItem>
+#include <QtWidgets/QGraphicsScene>
 
 /**
  * @file airGunBase.h

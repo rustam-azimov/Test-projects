@@ -3,10 +3,10 @@
 
 #include <QObject>
 
-#include <QtGui/QLabel>
+#include <QtWidgets/QLabel>
 #include <QtGui/QMovie>
-#include <QtGui/QGraphicsProxyWidget>
-#include <QtGui/QGraphicsScene>
+#include <QtWidgets/QGraphicsProxyWidget>
+#include <QtWidgets/QGraphicsScene>
 
 /**
  * @file gifAnimation.h

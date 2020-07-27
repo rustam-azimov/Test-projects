@@ -2,8 +2,8 @@
 #define PLANE_H
 
 #include <QObject>
-#include <QtGui/QGraphicsPixmapItem>
-#include <QSound>
+#include <QtWidgets/QGraphicsPixmapItem>
+#include <QtMultimedia/QSound>
 
 #include "gifAnimation.h"
 #include "bomb.h"

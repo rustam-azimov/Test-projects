@@ -1,9 +1,9 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#include <QtGui/QGraphicsPixmapItem>
-#include <QtGui/QGraphicsScene>
-#include <QtGui/QGraphicsItem>
+#include <QtWidgets/QGraphicsPixmapItem>
+#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QGraphicsItem>
 #include <QtGui/QPainter>
 #include <QObject>
 

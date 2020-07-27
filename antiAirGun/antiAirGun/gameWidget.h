@@ -1,9 +1,9 @@
 #ifndef GAMEWIDGET_H
 #define GAMEWIDGET_H
 
-#include <QtGui/QGraphicsTextItem>
-#include <QtGui/QGraphicsView>
-#include <QtGui/QKeyEvent>
+#include <QtWidgets/QGraphicsTextItem>
+#include <QtWidgets/QGraphicsView>
+#include <QKeyEvent>
 
 #include "player.h"
 #include "airGun.h"

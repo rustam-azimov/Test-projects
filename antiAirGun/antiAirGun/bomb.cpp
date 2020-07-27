@@ -7,11 +7,11 @@ Bomb::Bomb() :
     myFollowSpeed(bombStartSpeed),
     isWithPlane(true),
     animation(new GifAnimation(":/plane/animation_bomb_explosive.gif")),
-    soundExplosive(":/plane/sound_plane_explosive.wav") // и тут не подключает
+    soundExplosive(":/plane/sound_plane_explosive.wav")
 {
     soundExplosive.setLoops(1);
     this->setPixmap(QPixmap(":/plane/bomb.gif"));
-    this->scale(bombScale, bombScale);
+    this->setScale(bombScale);
 }
 
 void Bomb::advance(int step)

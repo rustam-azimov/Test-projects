@@ -3,8 +3,8 @@
 
 #include <QObject>
 
-#include <QGraphicsPixmapItem>
-#include <QSound>
+#include <QtWidgets/QGraphicsPixmapItem>
+#include <QtMultimedia/QSound>
 
 #include "gifAnimation.h"
 

@@ -3,7 +3,7 @@
 
 #include <QList>
 #include <QObject>
-#include <QtGui/QGraphicsScene>
+#include <QtWidgets/QGraphicsScene>
 
 #include "plane.h"
 #include "player.h"

@@ -1,9 +1,9 @@
 #ifndef AIRGUNTURRET_H
 #define AIRGUNTURRET_H
 
-#include <QtGui/QGraphicsPixmapItem>
-#include <QtGui/QGraphicsScene>
-#include <QSound>
+#include <QtWidgets/QGraphicsPixmapItem>
+#include <QtWidgets/QGraphicsScene>
+#include <QtMultimedia/QSound>
 #include <QList>
 #include <QObject>
 

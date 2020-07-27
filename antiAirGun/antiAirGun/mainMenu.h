@@ -1,8 +1,8 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
-#include <QGraphicsScene>
-#include <QtGui/QGraphicsTextItem>
+#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QGraphicsTextItem>
 #include <QString>
 
 class MainMenu

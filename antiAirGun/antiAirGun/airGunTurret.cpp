@@ -8,7 +8,7 @@
 AirGunTurret::AirGunTurret() :
     shellList(new QList<QGraphicsItem *>),
     animation(new GifAnimation(":/gun/animation_shoot.gif")),
-    soundShoot(":/gun/sound_shoot2.wav"), // Вот тут например не подключает!
+    soundShoot(":/gun/sound_shoot2.wav"),
     animationScale(0.7),
     rotationCenterLocalX(70),
     rotationCenterLocalY(31),
@@ -22,7 +22,7 @@ AirGunTurret::AirGunTurret() :
     soundShoot.setLoops(1);
     this->setPixmap(QPixmap(":/gun/gun.gif"));
     this->setVisible(true);
-    this->scale(size, size);
+    this->setScale(size);
     this->setPos(25, 330);
     this->setTransformOriginPoint(QPointF(rotationCenterLocalX, rotationCenterLocalY));
     this->setRotation(angle);
@@ -65,7 +65,7 @@ void AirGunTurret::shoot()
 
     playShootAnimation();
 
-//    soundShoot.play();
+    soundShoot.play();
 
     canShootNow = false;
     QTimer::singleShot(2000, this, SLOT(canShoot()));
